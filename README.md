@@ -1,8 +1,8 @@
 
 # Pterodactyl CS1.6 Egg No Steam Validation Needed
 
-> [!WARNING] EN | 
-> The link in the egg is downloading the server files through my hosting. If you notice that the egg doesn't write files correctly anymore, which should happen after a few months or years, I'm leaving a link to Counter Strike 1.6, the version that doesn't need Steam > Validation!
+ EN | 
+ The link in the egg is downloading the server files through my hosting. If you notice that the egg doesn't write files correctly anymore, which should happen after a few months or years, I'm leaving a link to Counter Strike 1.6, the version that doesn't need Steam > Validation!
 
 So you'll be able to host these files somewhere from where you'll then copy the server files to Pterodactyl with the egg install script.
 
