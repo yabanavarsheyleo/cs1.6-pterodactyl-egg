@@ -1,0 +1,72 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2024-06-01T10:09:06+02:00",
+    "name": "Counter Strike 1.6 WITHOUT-STEAM-VALIDATION",
+    "author": "admin-yabo@burnednodes.com",
+    "description": "Counter Strike 1.6 rehlds egg.\r\nEgg is edited by burnednodes.com (dc: yabo.666).",
+    "features": null,
+    "docker_images": {
+        "ghcr.io\/pterodactyl\/games:source": "ghcr.io\/pterodactyl\/games:source"
+    },
+    "file_denylist": [],
+    "startup": ".\/hlds_run -pidfile hlds_{{SERVER_PORT}} -game cstrike -{{SRV_SECURE}} +port {{SERVER_PORT}} +sv_lan 0 +maxplayers {{SRV_SLOTS}} +map {{SRV_STARTMAP}} +sys_ticrate 1200 -pingboost {{SRV_PINGBOOST}} -norestart",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"Connection to Steam servers successful.\",\r\n    \"userInteraction\": []\r\n}",
+        "logs": "{\r\n    \"custom\": true,\r\n    \"location\": \"logs\/latest.log\"\r\n}",
+        "stop": "quit"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n# steamcmd Base Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\n# Image to install with is 'ubuntu:18.04'\r\napt -y update\r\napt -y --no-install-recommends install curl lib32gcc1 ca-certificates\r\napt -y --no-install-recommends DEBIAN_FRONTEND=noninteractive install tzdata\r\napt -y --no-install-recommends DEBIAN_FRONTEND=noninteractive install lib32gcc1 libsdl2-2.0-0:i386 screen wget\r\napt install wget -y\r\napt install zip -y\r\n\r\n## download and install steamcmd\r\ncd \/tmp\r\nmkdir -p \/mnt\/server\/steamcmd\r\ncurl -sSL -o steamcmd.tar.gz https:\/\/steamcdn-a.akamaihd.net\/client\/installer\/steamcmd_linux.tar.gz\r\ntar -xzvf steamcmd.tar.gz -C \/mnt\/server\/steamcmd\r\ncd \/mnt\/server\/steamcmd\r\n\r\nchown -R root:root \/mnt\r\nexport HOME=\/mnt\/server\r\n\r\n## install gamefiles\r\n## YOU CAN CHANGE URL HERE\r\ncurl -O https:\/\/admin.impulse666.com\/admin\/uploads\/burnednodes-counter-strike1,6-no-steam-validation.zip\r\necho \"\u10db\u10d8\u10db\u10d8\u10d3\u10dc\u10d0\u10e0\u10d4\u10dd\u10d1\u10e1 Counter Strike 1.6 \u10d8\u10e1 \u10e4\u10d0\u10d8\u10da\u10d4\u10d1\u10d8\u10e1 \u10e9\u10d0\u10db\u10dd\u10e2\u10d5\u10d8\u10e0\u10d7\u10d5\u10d0 .\"\r\n\r\nmkdir -p \/mnt\/server\r\nunzip -o burnednodes-counter-strike1,6-no-steam-validation.zip -d \/mnt\/server\/\r\necho \"\u10db\u10d8\u10db\u10d8\u10d3\u10dc\u10d0\u10e0\u10d4\u10dd\u10d1\u10e1 Counter Strike 1.6 \u10d8\u10e1 \u10e4\u10d0\u10d8\u10da\u10d4\u10d1\u10d8\u10e1 \u10d0\u10db\u10dd\u10d0\u10d0\u10e5\u10d8\u10d5\u10d4\u10d1\u10d0.\"\r\n\r\ncd \/mnt\/server\r\nchmod +x .\/hlds_run\r\nchmod +x .\/hlds_linux\r\necho \"\u10db\u10d8\u10db\u10d3\u10d8\u10dc\u10d0\u10e0\u10d4\u10dd\u10d1\u10e1 start \u10e4\u10d0\u10d8\u10da\u10d4\u10d1\u10d8\u10e1 \u10d2\u10d0\u10d0\u10e5\u10e2\u10d8\u10e3\u10e0\u10d4\u10d1\u10d0.\"\r\n\r\n## set up 32 bit libraries\r\nmkdir -p \/mnt\/server\/.steam\/sdk32\r\ncp -v linux32\/steamclient.so \/mnt\/server\/.steam\/sdk32\/steamclient.so\r\n\r\n## set up 64 bit libraries\r\nmkdir -p \/mnt\/server\/.steam\/sdk64\r\ncp -v linux64\/steamclient.so \/mnt\/server\/.steam\/sdk64\/steamclient.so\r\n\r\ncd\r\nchown -R root:root \/mnt\r\nchmod -R 750 \/mnt\/server\/",
+            "container": "ubuntu:18.04",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Secure or Insecure",
+            "description": "",
+            "env_variable": "SRV_SECURE",
+            "default_value": "secure",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        },
+        {
+            "name": "Max Players (Slots)",
+            "description": "",
+            "env_variable": "SRV_SLOTS",
+            "default_value": "32",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        },
+        {
+            "name": "Startmap",
+            "description": "",
+            "env_variable": "SRV_STARTMAP",
+            "default_value": "de_dust2",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        },
+        {
+            "name": "Pingboost",
+            "description": "",
+            "env_variable": "SRV_PINGBOOST",
+            "default_value": "2",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        }
+    ]
+}
